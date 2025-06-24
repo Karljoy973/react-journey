@@ -1,5 +1,5 @@
 import { useState } from "react";
-import './assets/main.css';
+import "./assets/main.css";
 type ProductCategoryProps = Pick<Product, "categorie">;
 type ProductRowProps = Pick<Product, "nom" | "prix">;
 const CategoryOptions = [
@@ -43,36 +43,58 @@ const PRODUCTS: Product[] = [
 function App() {
   const [onCheck, setOnCheck] = useState(false);
   const handleOnCheck = (e) => setOnCheck(e);
+  const [onFilled, setOnFilled] = useState("");
+  const handleOnFilled = (e) => setOnFilled(e);
 
   return (
     <>
-      <SearchBar checked={onCheck} handleOnCheck={handleOnCheck} />
-      {onCheck ? (
+      <SearchBar
+        checked={onCheck}
+        handleOnCheck={handleOnCheck}
+        onFilled={onFilled}
+        handleOnFilled={handleOnFilled}
+      />
+      {onCheck && !!onFilled ? (
+        <ProductTable
+          products={PRODUCTS.filter((product) => product.stock).filter(
+            (product) => product.nom.includes(onFilled),
+          )}
+        />
+      ) : onCheck && !onFilled ? (
         <ProductTable products={PRODUCTS.filter((product) => product.stock)} />
+      ) : !onCheck && onFilled ? (
+        <ProductTable
+          products={PRODUCTS.filter((product) =>
+            product.nom.includes(onFilled),
+          )}
+        />
       ) : (
         <ProductTable products={PRODUCTS} />
       )}
+      <p>{onFilled}</p>
     </>
   );
 }
 
-function SearchBar({ checked, handleOnCheck }) {
-  const [onFilled, setOnFilled] = useState("");
-  const handleOnFilled = (e) => setOnField(e);
-
+function SearchBar({ checked, handleOnCheck, filled, handleOnFilled }) {
   return (
     <>
-      <ProductSearch filled={onFilled} onFilled={setOnFilled} />
+      <ProductSearch
+        filled={filled}
+        onChange={(e) => handleOnFilled(e.target.value)}
+        onFilled={(e) => handleOnFilled(e)}
+      />
       <Checkbox checked={checked} onCheck={(e) => handleOnCheck(e)} />
     </>
   );
 }
-
-function ProductSearch({ filled, onFilled }) {
+type ProductSearchProps = { filled: string; onFilled: Function };
+function ProductSearch({ filled, onFilled }: ProductSearchProps) {
   return (
     <>
       <input
-	className='recherche-produit'
+        id="recherche-produit"
+        className="recherche-produit"
         type="search"
         value={filled}
         onChange={(e) => onFilled(e.target.value)}
@@ -82,33 +104,38 @@ function ProductSearch({ filled, onFilled }) {
 }
 function Checkbox({ checked, onCheck }) {
   return (
-    <>
+    <div className="produits-en-stock">
       <input
+        id="produits-en-stock"
         type="checkbox"
         checked={checked}
         onChange={(e) => onCheck(e.target.checked)}
       />
       <p>N'afficher que les produits en stocks ? </p>
-    </>
+    </div>
   );
 }
 
 function ProductTable({ products }: ProductRowProps[]) {
   return (
     <>
-
-      <table><thead>
-        <tr>
-          <th scope="col">Nom du Produit</th>
-          <th scope="col">Prix</th>
-        </tr>
-      </thead>
-      <tbody>
-        {CategoryOptions.map((_categorie, index) => (
-          <ProductCategory key={index} categorie={_categorie} products={products} />
-        ))}
-      </tbody></table>
-
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">Nom du Produit</th>
+            <th scope="col">Prix</th>
+          </tr>
+        </thead>
+        <tbody>
+          {CategoryOptions.map((_categorie, index) => (
+            <ProductCategory
+              key={index}
+              categorie={_categorie}
+              products={products}
+            />
+          ))}
+        </tbody>
+      </table>
     </>
   );
 }
@@ -128,7 +155,9 @@ function ProductCategory({ categorie, products }) {
 function ProductCategoryRow({ categorie }: ProductCategoryProps) {
   return (
     <>
-      <tr className='categorie-produit'><td>{categorie}</td></tr>
+      <tr className="categorie-produit">
+        <td>{categorie}</td>
+      </tr>
     </>
   );
 }
@@ -136,7 +165,7 @@ function ProductCategoryRow({ categorie }: ProductCategoryProps) {
 function ProductRow({ nom, prix }: ProductRowProps) {
   return (
     <>
-      <tr className='produit'>
+      <tr className="produit">
         <td>{nom}</td>
         <td>{prix} €</td>
       </tr>
