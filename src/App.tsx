@@ -3,21 +3,6 @@ import { useState, useEffect } from "react";
 function App() {
   const [title, setTitle] = useState("");
   const [firstname, setFirstname] = useState("");
-  const [timer, setTimer] = useState(5);
-  let timeHandlerInterval = null;
-  const timeHandler = (value: number) => {
-    if (!!timeHandlerInterval) {
-      clearInterval(timeHandlerInterval);
-      timeHandlerInterval = null;
-    }
-    setTimer((timer) => (timer = value));
-    timeHandlerInterval = setInterval(() => {
-      setTimer((timer) => {
-        if (timer > 0) timer--;
-        else timer = 0;
-      });
-    }, 1000);
-  };
   // pourquoi utiliser useEffect ?
   // useEffect permet de créer des méthode de cycle de vie dans les composants fonctionnels
   // donc quand il y a une mutation dans le useEffect, la mutation n'affecte pas tout le composant
@@ -29,41 +14,36 @@ function App() {
   // return () => window.removeEventListener('event', handler) } , []}
   //
   // On évite les setState dans le useEffect, dans la fonction de nettoyage pk pas
-  useEffect(() => {
-    const originalTitle = document.title;
-    document.title = title;
-    return () => (document.title = originalTitle);
-  }, [title]);
+  const [timer, setTimer] = useState(5);
+  const [remainingSeconds, setRemainingSeconds] = useState(5);
+  let intervalRef = undefined;
+  const handleChange = (e) => {
+    setTimer(e);
+    setRemainingSeconds(e);
+  };
 
   useEffect(() => {
-    const timerText = document.getElementById("text-timer") as HTMLElement;
-    const currentText = timerText.innerText;
-    timerText.innerText = `Il vous reste ${timer} s`;
-    return () => (timerText.innerText = currentText);
+    intervalRef = setInterval(() => {
+      setRemainingSeconds((value) => {
+        if (value <= 1) {
+          clearInterval(intervalRef);
+          return 0;
+        }
+        return value - 1;
+      });
+    }, 1000);
+    return () => {
+      clearInterval(intervalRef);
+    };
   }, [timer]);
-
   return (
     <div>
       <input
-        placeholder="modifier le titre"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-      />
-      <input
-        placeholder="modifier le nom"
-        value={firstname}
-        onChange={(e) => setFirstname(e.target.value)}
-      />
-      <input
-        type="number"
-        placeholder=""
         value={timer}
-        min="10"
-        max="100"
-        id="timer"
-        onChange={(e) => setTimer(e.target.value)}
+        onChange={(e) => handleChange(e.target.value)}
+        placeholder="Timer..."
       />
-      <p id="text-timer">Entrez un nombre plus grand que 0</p>
+      <p id="text-timer">Il vous reste : {remainingSeconds}s</p>
     </div>
   );
 }
