@@ -1,51 +1,58 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, type ChangeEventHandler } from "react";
+import { useIncrement, type incrementHook } from "./hooks/useIncrement";
+import { useDocumentTitle } from "./hooks/useDocumentTitle";
 
 function App() {
-  const [title, setTitle] = useState("");
-  const [firstname, setFirstname] = useState("");
-  // pourquoi utiliser useEffect ?
-  // useEffect permet de créer des méthode de cycle de vie dans les composants fonctionnels
-  // donc quand il y a une mutation dans le useEffect, la mutation n'affecte pas tout le composant
-  // et ya que ce qui change qui est re-rendu => gain de performances.
-  // on peut aussi appeler une fonction de 'nettoyage'
-  // ex : useEffect(() => {
-  // window.addEventListener('event', e => handler);
-  // ...
-  // return () => window.removeEventListener('event', handler) } , []}
-  //
-  // On évite les setState dans le useEffect, dans la fonction de nettoyage pk pas
-  const [timer, setTimer] = useState(5);
-  const [remainingSeconds, setRemainingSeconds] = useState(5);
-  let intervalRef = undefined;
-  const handleChange = (e) => {
-    setTimer(e);
-    setRemainingSeconds(e);
-  };
+	const [timer, setTimer] = useState(5);
+	const [remainingSeconds, setRemainingSeconds] = useState(5);
+	let intervalRef: number | undefined = undefined;
 
-  useEffect(() => {
-    intervalRef = setInterval(() => {
-      setRemainingSeconds((value) => {
-        if (value <= 1) {
-          clearInterval(intervalRef);
-          return 0;
-        }
-        return value - 1;
-      });
-    }, 1000);
-    return () => {
-      clearInterval(intervalRef);
-    };
-  }, [timer]);
-  return (
-    <div>
-      <input
-        value={timer}
-        onChange={(e) => handleChange(e.target.value)}
-        placeholder="Timer..."
-      />
-      <p id="text-timer">Il vous reste : {remainingSeconds}s</p>
-    </div>
-  );
+	const [count, increment, decrement] = useIncrement(0) as incrementHook;
+	const [name, setName] = useState<string>("");
+	useDocumentTitle(name ? `Edit name : ${name}` : null);
+
+	const handleNameInput: ChangeEventHandler<HTMLInputElement> = (e) => {
+		setName((e.target as HTMLInputElement).value);
+	};
+
+	const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {
+		setTimer(+e.target.value);
+		setRemainingSeconds(+e.target.value);
+	};
+
+	useEffect(() => {
+		intervalRef = setInterval(() => {
+			setRemainingSeconds((value) => {
+				if (value <= 1) {
+					clearInterval(intervalRef);
+					return 0;
+				}
+				return value - 1;
+			});
+		}, 1000);
+
+		return () => {
+			clearInterval(intervalRef);
+		};
+	}, [timer]);
+	return (
+		<>
+			<div>
+				<input type="text" value={name} onChange={handleNameInput} />
+				<input
+					value={timer}
+					onChange={handleChange}
+					placeholder="Timer..."
+				/>
+				<p id="text-timer">Il vous reste : {remainingSeconds}s</p>
+			</div>
+			<div>
+				Compteur {count}
+				<button onClick={increment}>Increment</button>
+				<button onClick={decrement}>Decrement</button>
+			</div>
+		</>
+	);
 }
 
 export default App;

@@ -48,3 +48,10 @@ return <>
 const CGUCheckbox = ({checked, onCheck}) => {
 return <input type="checkbox" onChange={e => onCheck(e.target.checked)} checked={checked} />
 }
+
+
+		// Si j'ai besoin d'un Id, je peux utiliser le hook useId()
+
+		// Si j'ai besoin de mémoriser une information je peux utiliser useMemo() : Attention, useMemo n'est à utiliser
+
+		// que si vraiment mon composant est lent
