@@ -55,3 +55,7 @@ return <input type="checkbox" onChange={e => onCheck(e.target.checked)} checked=
 		// Si j'ai besoin de mémoriser une information je peux utiliser useMemo() : Attention, useMemo n'est à utiliser
 
 		// que si vraiment mon composant est lent
+
+
+
+on peut améliorer useIncrement en utilisant useCallback au lieu de useState (gain de perf ), on peut lui passer le handler parce que dans ce cas là le handler ne change pas (pas d'arguments typiquement)
