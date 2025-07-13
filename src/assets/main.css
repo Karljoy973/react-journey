@@ -27,3 +27,13 @@ tr {
   font-size: large;
   background-color: #ff758c;
 }
+
+.error {
+  background-color: rgba(255, 186, 186, 0.927);
+  
+}
+.error-text {
+  color: red;
+font-size: x-large;
+font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}

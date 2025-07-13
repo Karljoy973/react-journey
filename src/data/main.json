@@ -1,4 +1,4 @@
-export const data : {id: number, userId: string, title: string, body: string}[] = [
+{"data":  [
   {
     "id": 1,
     "userId": "user_1",
@@ -899,4 +899,4 @@ export const data : {id: number, userId: string, title: string, body: string}[] 
     "title": "Titre 150",
     "body": "Ceci est le contenu du post numéro 150."
   }
-]
+]}
