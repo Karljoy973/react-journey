@@ -1,0 +1,231 @@
+body {
+  background-color: pink;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
+
+#root {
+  margin: 10px;
+  padding: 30px;
+  width: 600px;
+
+  border: none;
+}
+
+.card {
+  background-color: #feedf0;
+  border-style: solid;
+  border-width: 8px;
+  border-radius: 10px;
+  border-color: #ff758c;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  min-height: 200px;
+
+  margin-top: 50px;
+  box-shadow: 4px 8px #6e313b;
+
+  width: 80%;
+}
+.row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.main-title,
+h1,
+h2,
+h3,
+p,
+label,
+.input-wrapper {
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+
+.main-title {
+  font-size: xx-large;
+  color: #6e313b;
+  font-weight: bold;
+  margin-left: 15px;
+}
+
+.notes-image {
+  min-width: 32px;
+  min-height: 32px;
+  color: #6e313b;
+
+  width: fit-content;
+  height: fit-content;
+  background-image: url("./icons/notes.png");
+}
+
+.input-wrapper,
+select {
+  padding-top: 5px;
+  padding-bottom: 5px;
+
+  margin-bottom: 5px;
+}
+
+label {
+  font-weight: 600;
+  font-size: x-large;
+  color: #a34958;
+
+  padding-bottom: 5px;
+}
+
+.input-wrapper {
+  font-weight: 600;
+  color: #a34958;
+
+  padding-bottom: 5px;
+}
+
+select {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  border-radius: 4px;
+  border-color: #ff758c;
+  border-style: groove;
+  border-width: 3px;
+}
+input,
+select {
+  width: 300px;
+  height: 40px;
+}
+
+select {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+select:focus {
+  outline: solid #6e313b;
+  border: none;
+}
+
+select,
+option {
+  font-size: large;
+  color: #6e313b;
+}
+
+.input-wrapper input {
+  border-radius: 4px;
+
+  border-color: #ff758c;
+  border-style: groove;
+  border-width: 3px;
+}
+
+.input-wrapper input:focus {
+  outline: solid #6e313b;
+  border: none;
+}
+
+button {
+  min-width: 150px;
+  min-height: 30px;
+
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  min-height: 110%;
+
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border-color: #ff758c;
+  border-width: 3px;
+  border-style: solid;
+  outline: none;
+  background-color: #6e313b;
+  color: #feedf0;
+  font-weight: 700;
+  font-size: 18px;
+}
+
+button:hover {
+  background-color: #a34958;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.tooltip {
+  min-width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-items: center;
+  width: 85%;
+  height: 10%;
+  border-width: 3px;
+  border-radius: 10px;
+  border-color: #6e313b;
+  border-style: solid;
+  border-left: 10px solid #6e313b;
+  margin: 10px;
+  box-shadow: 4px 2px #6e313ba1;
+}
+
+.tooltip h3 {
+  color: #6e313b;
+}
+
+.animated-button{
+  animation: normal;
+  animation-duration: 1s;
+  animation-name: slide-in;
+  animation-name: slide-out;
+}
+
+.opening-card {
+  animation-duration: 5s;
+  animation-name: slide-in;
+}
+
+.closing-card {
+    animation-duration: 1s;
+  animation-name: slide-out;
+}
+/* Il faut que je me penche sur les animations css */
+
+@keyframes slide-in {
+  0% {
+    height: 10%;
+  }
+  60% {
+    height: 70%;
+  }
+  100% {
+    height: 100%
+  }
+}
+
+@keyframes slide-out {
+  from {
+    height: 100%
+  }
+  to {
+    height: 10%;
+  }
+}
