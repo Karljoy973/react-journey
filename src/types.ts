@@ -41,7 +41,8 @@ export type note = {
 
 export type NotesProps = {
   notes?: note[];
-  setNotes?: Function;
+  setNotes?: (notes: any) => void;
+  deleteNotes?: Function
 };
 
 export type NoteCategory = "Travail" | "Personnel" | "Projets";

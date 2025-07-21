@@ -70,12 +70,11 @@ label,
   height: fit-content;
   background-image: url("./icons/notes.png");
 }
-
 .input-wrapper,
 select {
   padding-top: 5px;
   padding-bottom: 5px;
-
+  
   margin-bottom: 5px;
 }
 
@@ -83,14 +82,14 @@ label {
   font-weight: 600;
   font-size: x-large;
   color: #a34958;
-
+  
   padding-bottom: 5px;
 }
 
 .input-wrapper {
   font-weight: 600;
   color: #a34958;
-
+  
   padding-bottom: 5px;
 }
 
@@ -126,7 +125,7 @@ option {
 
 .input-wrapper input {
   border-radius: 4px;
-
+  
   border-color: #ff758c;
   border-style: groove;
   border-width: 3px;
@@ -140,13 +139,13 @@ option {
 button {
   min-width: 150px;
   min-height: 30px;
-
+  
   padding-left: 20px;
   padding-right: 20px;
   padding-top: 10px;
   padding-bottom: 10px;
   min-height: 110%;
-
+  
   margin-top: 10px;
   margin-bottom: 10px;
   border-color: #ff758c;
@@ -204,7 +203,7 @@ form {
 }
 
 .closing-card {
-    animation-duration: 1s;
+  animation-duration: 1s;
   animation-name: slide-out;
 }
 /* Il faut que je me penche sur les animations css */
@@ -228,4 +227,13 @@ form {
   to {
     height: 10%;
   }
+}
+.poubelle {
+  min-width: 32px;
+  min-height: 32px;
+  background-color: #feedf0;
+/* style à retravailler */
+  width: fit-content;
+  height: fit-content;
+  background-image: url("./icons/poubelle.png");
 }
