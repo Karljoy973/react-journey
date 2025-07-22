@@ -7,7 +7,17 @@ const NoteList = ({ notes, deleteNotes }: Partial<NotesProps>) => {
 	return (
 		<div>
 			{notes.map((note, index) => (
-				<div className="tooltip" key={`wrapper-${index}`}>
+				<div
+					className="tooltip"
+					key={`wrapper-${index}`}
+					style={{
+						borderLeftColor:
+							note.priority == "Faible"
+								? "green"
+								: note.priority == "Médium"
+									? "yellow"
+									: "red",
+					}}>
 					<h3>
 						<strong>Titre :</strong> {note.title}
 					</h3>
