@@ -2,8 +2,8 @@ export type NoteSelectProps = {
   options: { value: string; label: string }[];
   name: string;
   id?: string;
-  value?: string;
-  setValue?: Function;
+  value: string;
+  setValue: Function;
 };
 
 export type NoteInputProps = {
@@ -40,9 +40,10 @@ export type note = {
 };
 
 export type NotesProps = {
-  notes?: note[];
-  setNotes?: (notes: any) => void;
-  deleteNotes?: Function
+  notes: note[];
+  deleteNotes?: Function;
+  showNotes?: Function;
+  setNotes?: Function;
 };
 
 export type NoteCategory = "Travail" | "Personnel" | "Projets";
