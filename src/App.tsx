@@ -2,6 +2,7 @@ import { lazy, Suspense, useEffect, useState } from "react";
 import { LoadingFallback } from "./component/Fallback";
 import NoteList from "./component/NoteList";
 import type { note } from "./types";
+import FetchNotesAPI from "./component/FetchNotesAPI";
 
 export default function App() {
 	const Notes = lazy(() => import("./component/Notes"));
@@ -31,6 +32,8 @@ export default function App() {
 					<h1>Tâches à faire</h1>
 					<NoteList notes={notes} deleteNotes={deleteNotes} />
 				</div>
+
+				<FetchNotesAPI url={import.meta.env.VITE_NOTES} />
 			</Suspense>
 		</>
 	);
